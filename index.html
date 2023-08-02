@@ -1,123 +1,32 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="size.css">
-        <title>Recipe Finder</title>
-    </head>
-    <body style="background-color: #5A5A5A;">
-        <div class="container">
-            <div class="centered-text">
-                <div class="box">
-                    <h1>Recipe Finder</h1>
-                </div> <br>
-                <div class="box">
-                    <label for="input">Enter your ingredients</label>
-                    <input type="text" id="input">
-                    <button onclick="displayInput()">Submit</button>
-                </div> <br>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="figures.css">
+    <title>Recipe Finder</title>
+</head>
+<body style="background-color: #5A5A5A;">
+<div class="menu">
+    <div class="container">
+        <div class="centered-text">
+            <div class="box">
+                <h1>Recipe Finder</h1>
+            </div> <br>
+            <div class="box">
+                <label for="input">Enter your ingredients:</label>
+                <input type="text" id="input">
+                <button onclick="onSubmit()">Submit</button>
+            </div> <br>
+            <div class="box">
                 <p id="output"></p>
-                <script src="read.js"></script>
+                <script src="fun.js"></script>
             </div>
         </div>
-    </body>
+    </div>
+</div>
+<div class = "results">
+    <h1>test</h1>
+</div>
+</body>
 </html>
-
-<!--<form id="recipes" enctype="multipart/form-data">
-    <input type="file" id="results" accept=".csv">
-    <input type="submit" value="upload" />
-</form>-->
-<!--<input type="file" id="results" accept=".csv">
-        <button id="uploadconfirm">Upload File</button>
-        <script src="exRecipes.csv"></script>-->
-<!--<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8"> &lt;!&ndash;unicode encoding&ndash;&gt;
-        &lt;!&ndash;ensure width of device and not zoomed in&ndash;&gt;
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Recipe Finder</title>
-    </head>
-    <body>
-        <h1>Recipe Finder</h1>
-        <h2>*enter subtitle*</h2> &lt;!&ndash;goes up to h6, smaller each time&ndash;&gt;
-
-        I am a computer science student <b> yay!!!!!</b> 2.0
-
-        <p>
-            Lorem ipsum dolor sit amet. Et illo natus ut rerum velit quo alias quasi et molestiae quae est necessitatibus velit in omnis rerum et quaerat voluptatibus. Est voluptates quia et dolore quam et eligendi consequatur vel repellendus distinctio sit voluptates omnis eos repellat deleniti. Non dolorem eveniet vel accusantium voluptas sed earum nobis ut ratione corporis eum quas odit! Ut praesentium ipsum aut vero quibusdam eum omnis quibusdam.
-        </p>
-        <hr> &lt;!&ndash;inserts line&ndash;&gt;
-        <p>
-            Et iste iste vel molestiae autem ea tempore deleniti. Ad dolorum commodi et quos exercitationem ut eligendi vero ea repudiandae atque.
-        </p>
-
-        line, then insert break <br> like this, or multiple break <br><br> like this <br>
-        italics are like <i>this</i>
-        <br>
-        underline like <u>this</u>
-        <br>
-        emphasize like <em>this</em>
-        <br>
-        <a href="http://www.google.com" target="_blank">link to google</a> &lt;!&ndash;use for links to youtube/recipe&ndash;&gt;
-        <br>
-        <img src="https://placehold.co/200x200"> &lt;!&ndash;insert image&ndash;&gt;
-        <br>
-        <img src="banana.png" border="10">
-        &lt;!&ndash;unordered list&ndash;&gt;
-        <ol> &lt;!&ndash;ul has bullets, ol has numbers&ndash;&gt;
-            <li>apples</li>
-                <ul>
-                    <li>granny smith</li>
-                    <li>gala</li>
-                    <li>golden delicious</li>
-                </ul>
-            <li>pears</li>
-            <li>mangoes</li>
-            <li>watermelon</li>
-        </ol>
-        <table border="10" cellpadding="10" cellspacing="0">
-            <tr>
-                <th>Month</th>
-                <th>Rent</th>
-                <th colspan="2">Utilities</th>
-                <th>Groceries</th>
-                <th>Entertainment</th>
-            </tr>
-            <tr>
-                <td rowspan="3">Fall</td>
-                <td>August</td>
-                <td>$1500</td>
-                <td>$150</td>
-                <td>$200</td>
-                <td>$100</td>
-                <td>$500</td>
-            </tr>
-            <tr>
-                <td>July</td>
-                <td>$1500</td>
-                <td>$150</td>
-                <td>$200</td>
-                <td>$100</td>
-                <td>$500</td>
-            </tr>
-            <tr>
-                <td>June</td>
-                <td>$1500</td>
-                <td>$150</td>
-                <td>$200</td>
-                <td>$100</td>
-                <td>$500</td>
-            </tr>
-        </table>
-    </body>
-<html>
-
-&lt;!&ndash;
-{\rtf1\ansi\ansicpg1252\cocoartf2709
-\cocoatextscaling0\cocoaplatform0{\fonttbl}
-{\colortbl;\red255\green255\blue255;}
-{\*\expandedcolortbl;;}
-\margl1440\margr1440\vieww11520\viewh8400\viewkind0
-}&ndash;&gt;-->
