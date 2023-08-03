@@ -10,6 +10,7 @@ class Recipe {
         this.ratio = (ingredients.length - this.neededIngredients.length) / ingredients.length
     }
 }
+
 class MaxHeap {
     constructor(){
         this.heap = [];

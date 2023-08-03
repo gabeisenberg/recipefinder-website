@@ -30,6 +30,13 @@ body {
     height: 100%;
 }
 
+.recipeTitle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50%;
+}
+
 .centered-text {
     text-align: center;
 }
@@ -38,8 +45,16 @@ body {
     background-color: azure;
     padding: 10px;
     border-radius: 20px;
+    /*display: inline-block;*/
+}
+
+.buttonbox {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 25vh;
 }
 
 .hidden {
-    display: none;
+    /*isnt working*/
 }
