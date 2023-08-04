@@ -129,10 +129,13 @@ async function main() {
     console.log(sorted[1]);
     console.log(sorted[2]);
 }
+<<<<<<< HEAD
 
 module.exports = {
     mergeSort,
     heapSort,
     readRecipes,
 }
+=======
+>>>>>>> 5980c0814abf20edd9323971dde609223dd6a89f
 main()
