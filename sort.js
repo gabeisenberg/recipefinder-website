@@ -130,4 +130,9 @@ async function main() {
     console.log(sorted[1]);
     console.log(sorted[2]);
 }
-main()
+
+module.exports = {
+    mergeSort,
+    heapSort,
+    readRecipes,
+}
