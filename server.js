@@ -62,11 +62,11 @@ app.post("/recipes", (req, res) => {
     sorted_recipes_list = []
     sorted_recipes.forEach(recipe => {
       const recipeObj = {
+        'name': recipe.name,
+        'ratio': recipe.ratio
         'ingredients': recipe.ingredients,
         'neededIngredients': recipe.neededIngredients,
-        'direction': recipe.directions,
-        'name': recipe.name,
-        'ration': recipe.ratio
+        'directions': recipe.directions,
       }
       sorted_recipes_list.push(recipeObj)
     })
