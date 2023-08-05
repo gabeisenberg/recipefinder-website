@@ -1,4 +1,4 @@
-const fs = require("fs") // Node.js file system
+const fs = require("fs"); // Node.js file system
 const { parse } = require("csv-parse"); // using the csv-parse module from npm
 
 class Recipe {
@@ -15,7 +15,8 @@ class MaxHeap {
     constructor(){
         this.heap = []; // heap is modeled by an array
     }
-    parent(child) {
+    // some helper functions follow
+    parent(child) { 
         return Math.floor((child-1)/2);
     }
     left(parent) {
@@ -40,20 +41,20 @@ class MaxHeap {
         }
     }
     extractMax() { // JavaScript's added capabilites for arrays allow us to heapify down differently than how we would do so in C++
-        var max = this.heap.shift();
-        this.heap.unshift(this.heap.pop());
-        let p = 0;
+        var max = this.heap.shift(); // removes the front of the array
+        this.heap.unshift(this.heap.pop()); // places the last element at the front
+        let parent = 0;
         let left = 1;
         let right = 2;
-        while((this.heap[left] && this.heap[left].ratio > this.heap[p].ratio) || (this.heap[right] && this.heap[right].ratio > this.heap[p].ratio)) {
-            var v = left;
-            if(this.heap[right] && this.heap[right].ratio > this.heap[v].ratio) {
-                v = right;
+        while((this.heap[left] && this.heap[left].ratio > this.heap[parent].ratio) || (this.heap[right] && this.heap[right].ratio > this.heap[parent].ratio)) {
+            var pos = left; // finding the correct position of the node we put at the front now
+            if(this.heap[right] && this.heap[right].ratio > this.heap[pos].ratio) { // if right child greater than left child, then right child replaces and not left
+                pos = right;
             }
-            this.swap(v, p);
-            p = v;
-            left = this.left(max);
-            right = this.right(max);
+            this.swap(pos, parent);
+            parent = pos;
+            left = this.left(pos);
+            right = this.right(pos);
         }
         return max;
     }
@@ -109,7 +110,7 @@ function merge(left, right) { // helper function for mergeSort()
             sorted.push(right.shift());
         }
     }
-    return [...sorted, ...left, ...right];
+    return [...sorted, ...left, ...right]; // using array spread operators to splice these arrays
 }
 function mergeSort(recipesArray) {
     if (recipesArray.length <= 1) { // base case
@@ -123,13 +124,16 @@ function mergeSort(recipesArray) {
 
 // Main function used to test out sort.js functions
 async function main() {
-    const neededIngredients = ["salt", "garlic", "eggs", "onion", "water", "butter"] // example
+    const neededIngredients = ["eggs", "water", "sugar", "butter"] // example
     const recipesArray = await readRecipes(neededIngredients); // await used to ensure the recipe array is actually received before the following code
     var sorted = heapSort(recipesArray); // comment and uncomment as needed
     //var sorted = mergeSort(recipesArray); // comment and uncomment as needed
     console.log(sorted[0]);
     console.log(sorted[1]);
     console.log(sorted[2]);
+    console.log(sorted[3]);
+    console.log(sorted[4]);
+    console.log(sorted[5]);
 }
 
 module.exports = {
@@ -137,4 +141,3 @@ module.exports = {
     heapSort,
     readRecipes,
 }
-
