@@ -10,23 +10,56 @@ function displayInput() {
         orderList.appendChild(it);
     });
     outputDisplay.appendChild(orderList);
-    localStorage.setItem('foodList', JSON, stringify(ingredients));
+    localStorage.setItem('foodList', JSON.stringify(ingredients));
     return ingredients;
+}
+
+async function postData(url, data) {
+    const response = await fetch(url, {
+        method: "POST",
+        credentials: "same-origin",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+    });
+    return response;
+}
+
+async function getData(url) {
+    const response = await fetch(url, {
+        method: "GET",
+        credentials: "same-origin",
+        headers: {
+            "Content-Type": "application/json"
+        },
+    });
+    return response;
 }
 
 function onSubmit() {
     const list = displayInput();
-    revealBox();
-    showRecipes(list);
+    const recipeObj = {
+        "neededIngredients": list
+    };
+    postData('http://localhost:3000/recipes', recipeObj).then((data) => {
+        data.json().then(list => {
+            let recipes = JSON.parse(list) 
+            console.log(recipes)
+            
+        }); // JSON data parsed by `data.json()` call
+    });
+
+
 }
 
-function revealBox() { //isnt working
+/*function revealBox() { //isnt working
     const box = document.getElementById("res");
     box.classList.toggle("hidden");
-}
+}*/
 
-let currIndex=0;
-const recipe1 = [["Milk","Eggs"], ["Sugar", "Flour", "Syrup"], ["Heat", "Pour", "Flip", "Serve"], "Pancakes"];
+let currIndex = 0;
+const recipe1 = [["Milk", "Eggs"], ["Sugar", "Flour", "Syrup"], ["Heat", "Pour", "Flip", "Serve"], "Pancakes"];
 const recipe2 = [["Lettuce", "Spinach"], ["Onions", "Tomatoes"], ["Chop", "Mix", "Serve"], "Salad"];
 const recipe3 = [["Flour, Eggs"], ["Sugar", "Sprinkles", "Frosting"], ["Preheat", "Mix", "Pour", "Bake", "Frost"], "Cake"];
 const recipes = [recipe1, recipe2, recipe3];
@@ -38,7 +71,7 @@ function showRecipes(...recipeList) {
 }
 
 function goBack() {
-    if (currIndex>0) {
+    if (currIndex > 0) {
         --currIndex;
     }
     clearList();
@@ -46,7 +79,7 @@ function goBack() {
 }
 
 function goNext() {
-    if (currIndex<2) { //size of recipes - 1, not working
+    if (currIndex < 2) { //size of recipes - 1, not working
         ++currIndex;
     }
     clearList();

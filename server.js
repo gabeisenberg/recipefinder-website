@@ -63,7 +63,7 @@ app.post("/recipes", (req, res) => {
     sorted_recipes.forEach(recipe => {
       const recipeObj = {
         'name': recipe.name,
-        'ratio': recipe.ratio
+        'ratio': recipe.ratio,
         'ingredients': recipe.ingredients,
         'neededIngredients': recipe.neededIngredients,
         'directions': recipe.directions,
@@ -75,7 +75,13 @@ app.post("/recipes", (req, res) => {
     fs.writeFile('recipes.json', data, 'utf8', (err) => {
       if (err) throw err;
       console.log("DB Updated")
-      res.send('DB updated')
+
+      //Send first five results 
+      let data_parsed = JSON.parse(data)
+
+      // First n recipes 
+      let results = data_parsed.slice(0, 5)
+      res.json(JSON.stringify(results))
     })
 })
   
@@ -87,7 +93,6 @@ app.listen(port, () => {
 
 
 // Middle Ware Functions
-
 const readRecipes = (filePath, cb) => {
   fs.readFile(filePath, 'utf-8', (err, jsonString) => {
     if(err) {
