@@ -12,31 +12,32 @@
         <div class="centered-text">
             <div class="box">
                 <h1>Recipe Finder</h1>
-            </div> <br>
-            <div class="box">
-                <label for="input">Enter your ingredients:</label>
+                <label for="input">Enter your ingredients as a comma seperated list:</label>
                 <input type="text" id="input">
                 <button onclick="onSubmit()">Submit</button>
             </div> <br>
-            <div class="box">
+            <div class="box" id="int">
                 <p id="output"></p>
                 <script src="fun.js"></script>
             </div>
         </div>
     </div>
 </div>
+<div class="screen" id="load">
+    <div class="loading"></div>
+</div>
 <div class = "results">
-    <!--<div id="res" class="hidden">-->
     <div class="recipeTitle">
         <div class = "centered-text">
             <div class = "box">
                 <h1 id="current-recipe"></h1>
+                <p id="match"></p>
             </div> <br>
             <div class = "box">
-                <h6 id="ingredients"></h6>
-            </div>
-            <div class = "box">
-                <h6 id="directions"></h6>
+                <h5 id="iTitle"></h5>
+                <p id="ingredients"></p>
+                <h5 id="iDir"></h5>
+                <p id="directions"></p>
             </div>
         </div>
     </div>

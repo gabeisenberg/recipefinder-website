@@ -13,14 +13,14 @@ body {
     float: left;
     width: 35%;
     height: 100%;
-    background-color: lightpink;
+    background-color: darkslategrey;
 }
 
 .results {
     float: right;
     width: 65%;
     height: 100%;
-    background-color: lightcoral;
+    background-color: darkkhaki;
 }
 
 .container {
@@ -34,7 +34,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 50%;
+    height: 70%;
 }
 
 .centered-text {
@@ -45,16 +45,48 @@ body {
     background-color: azure;
     padding: 10px;
     border-radius: 20px;
-    /*display: inline-block;*/
 }
 
 .buttonbox {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 25vh;
+    height: 30vh;
 }
 
-.hidden {
-    /*isnt working*/
+#int {
+    appearance: none;
+}
+
+.loading {
+    /*24font-size: 24px;
+    https://www.w3schools.com/howto/howto_css_loader.asp*/
+    border: 16px solid azure;
+    border-top: 16px solid black;
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    animation: spin 2s linear infinite;
+    z-index: 9999;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    z-index: 5000;
+    text-align: center;
+    justify-content: center;
+    align-content: center;
+    visibility: hidden;
 }
