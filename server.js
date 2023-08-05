@@ -86,6 +86,7 @@ app.post("/recipes", (req, res) => {
       time = (endTime - startTime) / 1000;
       results.time = time.toString().concat(" s")
       results.results = data_parsed.slice(0, 5)
+      res.json(JSON.stringify(results))
     })
 })
   
