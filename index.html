@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="figures.css">
+    <title>Recipe Finder</title>
+</head>
+
+<body style="overflow-y: scroll">
+    <div class="menu">
+        <div class="container">
+                <div class="box">
+                    <h1>Recipe Finder</h1>
+                    <label for="input">Enter your ingredients as a comma separated list (Ex. "eggs, water, sugar"): <br></label>
+                    <input type="text" id="input">
+                    <div class="radio-container">
+                        <label>Enter Sort Type: </label>
+                        <div>
+                            <input type="radio"
+                                   id="Merge"
+                                   name="sort"
+                                   value="Merge">
+                            <label for="Merge">Merge</label>
+                        </div>
+                    </div>
+                    <div>
+                        <input type="radio"
+                               id="Heap"
+                               name="sort"
+                               value="Heap">
+                        <label for="Heap">Heap</label>
+                    </div>
+                    <button onclick="onSubmit()">Submit</button>
+                </div> 
+        </div>
+    </div>
+    <div class="screen" id="load">
+        <div class="loading"></div>
+    </div>
+    <div class="results">
+        <div class="recipeTitle">
+            <div class="centered-text">
+                <div class="box">
+                    <h1 id="current-recipe"></h1>
+                    <p id="match"></p>
+                </div> <br>
+                <div class="box">
+                    <h2 id="iTitle"></h2>
+                    <p id="ingredients"></p>
+                    <h2 id="iDir"></h2>
+                    <p id="directions"></p>
+                </div>
+            </div>
+        </div>
+        <div class="buttonbox">
+            <button onclick="goBack()">Previous</button>
+            <button onclick="goNext()">Next</button>
+        </div>
+    </div>
+    <script src="fun.js"></script>
+</body>
+
+</html>
