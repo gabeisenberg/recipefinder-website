@@ -56,7 +56,10 @@ app.post("/recipes", (req, res) => {
 
   const recipes = getRecipes(ingredients)
   recipes.then((recipes_list) => {
+
+    // Start time
     sorted_recipes = sort.mergeSort(recipes_list)
+    // End time
 
     // Write to JSON File
     sorted_recipes_list = []
@@ -79,8 +82,11 @@ app.post("/recipes", (req, res) => {
       //Send first five results 
       let data_parsed = JSON.parse(data)
 
-      // First n recipes 
-      let results = data_parsed.slice(0, 5)
+      // First n recipes with time
+      const results = {}
+
+      results.time = 0; // endtime - start time
+      results.results = data_parsed.slice(0, 5)
       res.json(JSON.stringify(results))
     })
 })

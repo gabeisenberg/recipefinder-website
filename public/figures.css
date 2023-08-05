@@ -27,7 +27,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100%;
+    height: 50%;
 }
 
 .recipeTitle {
@@ -42,6 +42,7 @@ body {
 }
 
 .box {
+    width: 85%;
     background-color: azure;
     padding: 10px;
     border-radius: 20px;
