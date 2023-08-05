@@ -6,7 +6,9 @@ body {
     justify-content: left;
     align-items: center;
     font-family: "American Typewriter";
-    /*background-image: url('kitchen-cloth-wood-table.jpg');*/
+    margin-top: 200px;
+    margin-bottom: 200px;
+    background-color: darkolivegreen;
 }
 
 .menu {
