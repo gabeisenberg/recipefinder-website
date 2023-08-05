@@ -26,31 +26,15 @@ async function postData(url, data) {
     return response;
 }
 
-async function getData(url) {
-    const response = await fetch(url, {
-        method: "GET",
-        credentials: "same-origin",
-        headers: {
-            "Content-Type": "application/json"
-        },
-    });
-    return response;
-}
-
 function onSubmit() {
     const list = displayInput();
     const recipeObj = {
         "neededIngredients": list
     };
-    postData('http://localhost:3000/recipes', recipeObj).then((data) => {
-        data.json().then(list => {
-            let recipes = JSON.parse(list) 
-            console.log(recipes)
-            
-        }); // JSON data parsed by `data.json()` call
+    postData("http://localhost:3000/recipes", recipeObj).then((data) => {
+        console.log(data); // JSON data parsed by `data.json()` call
     });
-
-
+    showRecipes(list);
 }
 
 /*function revealBox() { //isnt working
@@ -58,8 +42,8 @@ function onSubmit() {
     box.classList.toggle("hidden");
 }*/
 
-let currIndex = 0;
-const recipe1 = [["Milk", "Eggs"], ["Sugar", "Flour", "Syrup"], ["Heat", "Pour", "Flip", "Serve"], "Pancakes"];
+let currIndex=0;
+const recipe1 = [["Milk","Eggs"], ["Sugar", "Flour", "Syrup"], ["Heat", "Pour", "Flip", "Serve"], "Pancakes"];
 const recipe2 = [["Lettuce", "Spinach"], ["Onions", "Tomatoes"], ["Chop", "Mix", "Serve"], "Salad"];
 const recipe3 = [["Flour, Eggs"], ["Sugar", "Sprinkles", "Frosting"], ["Preheat", "Mix", "Pour", "Bake", "Frost"], "Cake"];
 const recipes = [recipe1, recipe2, recipe3];
@@ -71,7 +55,7 @@ function showRecipes(...recipeList) {
 }
 
 function goBack() {
-    if (currIndex > 0) {
+    if (currIndex>0) {
         --currIndex;
     }
     clearList();
@@ -79,7 +63,7 @@ function goBack() {
 }
 
 function goNext() {
-    if (currIndex < 2) { //size of recipes - 1, not working
+    if (currIndex<2) { //size of recipes - 1, not working
         ++currIndex;
     }
     clearList();
