@@ -15,6 +15,23 @@
                     <h1>Recipe Finder</h1>
                     <label for="input">Enter your ingredients as a comma separated list (Ex. "eggs, water, sugar"): <br></label>
                     <input type="text" id="input">
+                    <div class="radio-container">
+                        <label>Enter Sort Type: </label>
+                        <div>
+                            <input type="radio"
+                                   id="Merge"
+                                   name="sort"
+                                   value="Merge">
+                            <label for="Merge">Merge</label>
+                        </div>
+                    </div>
+                    <div>
+                        <input type="radio"
+                               id="Heap"
+                               name="sort"
+                               value="Heap">
+                        <label for="Heap">Heap</label>
+                    </div>
                     <button onclick="onSubmit()">Submit</button>
                 </div> 
         </div>
@@ -30,9 +47,9 @@
                     <p id="match"></p>
                 </div> <br>
                 <div class="box">
-                    <h5 id="iTitle"></h5>
+                    <h2 id="iTitle"></h2>
                     <p id="ingredients"></p>
-                    <h5 id="iDir"></h5>
+                    <h2 id="iDir"></h2>
                     <p id="directions"></p>
                 </div>
             </div>

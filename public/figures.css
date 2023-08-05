@@ -25,6 +25,7 @@ body {
 
 .container {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     height: 50%;
@@ -38,14 +39,15 @@ body {
 }
 
 .centered-text {
-    text-align: center;
+    text-align: left;
 }
 
-.box {
+.box, .ingredients-container {
     width: 85%;
     background-color: azure;
     padding: 10px;
     border-radius: 20px;
+    margin: 10px;
 }
 
 .buttonbox {

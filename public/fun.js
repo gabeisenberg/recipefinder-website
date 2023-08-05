@@ -1,19 +1,49 @@
+// Globals
+let currIndex = 0;
+let gRecipes = [];
+let page = 0;
+
 function displayInput() {
     const userInput = document.getElementById('input').value;
-    const ingredients = userInput.split(',').map(item => item.trim()); //array of ingredients
-    const outputDisplay = document.getElementById('output');
+    const menuContainer = document.querySelector('.container');
+
+    ingredientsContainer = document.createElement('div');
+    ingredientsContainer.setAttribute('class', 'ingredients-container');
+    
+    const outputDisplay = document.createElement('h4');
     outputDisplay.innerHTML = 'You entered:';
-    const orderList = document.createElement('ol')
+    outputDisplay.setAttribute('id', 'ingredients-title');
+
+    const orderList = document.createElement('ol');
+
+    const ingredients = userInput.split(',').map(item => item.trim()); //array of ingredients
+
+   
+
+    // Create Ingredient Card
     ingredients.forEach(item => {
         const it = document.createElement('li');
         it.textContent = item;
         orderList.appendChild(it);
     });
-    outputDisplay.appendChild(orderList);
+
+    ingredientsContainer.append(outputDisplay);
+    ingredientsContainer.append(orderList);
+    menuContainer.append(ingredientsContainer);
+    
+ 
+
+
     localStorage.setItem('foodList', JSON.stringify(ingredients));
     return ingredients;
 }
 
+function removeInput() {
+    const ingredientsContainer = document.querySelector('.ingredients-container')
+    ingredientsContainer.remove()
+}
+
+// function to post data to server 
 async function postData(url, data) {
     const response = await fetch(url, {
         method: "POST",
@@ -26,6 +56,7 @@ async function postData(url, data) {
     return response;
 }
 
+// function to get page from server
 async function getData(url) {
     const response = await fetch(url, {
         method: "GET",
@@ -37,24 +68,58 @@ async function getData(url) {
     return response;
 }
 
-let currIndex = 0;
-let gRecipes = [];
+// when user submits ingredients list
 function onSubmit() {
-    showLoad();
+    // showLoad();
+    const ingredientsContainer = document.querySelector('.ingredients-container')
+    if(ingredientsContainer !== null) {
+        removeInput();
+    }
+    
+    let merge = 0
+    // Values of radio buttons
+    const radios = document.getElementsByName('sort');
+    radios.forEach(radio => {
+        if(radio.checked) {
+            if(radio.value === 'Merge') {
+                merge = 1;
+            }
+            if(radio.value === 'Heap') {
+                merge = 0;
+            }
+        }
+    })
+    console.log(merge)
+
+    // removeInput();
     const list = displayInput();
     const recipeObj = {
-        "neededIngredients": list
+        "neededIngredients": list,
+        "merge": merge
     };
+    // Post request that sends ingredients
     postData('http://localhost:3000/recipes', recipeObj).then((data) => {
         data.json().then(list => {
-            let recipes = JSON.parse(list)
-            gRecipes = recipes
-            console.log(recipes)
-            currIndex = 0
-            showRecipes(recipes)
-        }); // JSON data parsed by `data.json()` call
+            console.log(list['time']);
+            showRecipes(list['results']);
+            const results = document.querySelector('.recipeTitle');
+            const timeSelect = document.querySelector('#time');
+            if(timeSelect !== null) {
+                removeTime();
+            }
+            const time = document.createElement('h4')
+            time.innerHTML = 'Time for sort: ' + list['time']
+            time.setAttribute('id', 'time')
+            results.append(time)
+            page = 1;
+        });
     });
-    hideLoad();
+    // hideLoad();
+}
+
+function removeTime() {
+    const time = document.querySelector('#time');
+    time.remove();
 }
 
 function showLoad() {
@@ -66,24 +131,32 @@ function hideLoad() {
 }
 
 function showRecipes(recipeList) {
-    console.log(recipeList[currIndex]);
-    showRecipe(recipeList[currIndex]);
+    console.log(recipeList[0]);
+    showRecipe(recipeList[0]);
 }
 
 function goBack() {
-    if (currIndex > 0) {
-        --currIndex;
-    }
+    getData(`http://localhost:3000/recipes?page=${page--}&limit=1`).then(data => {
+            data.json().then(list => {
+                console.log(list);
+                showRecipes(list['results']);
+            
+            });
+        });
     clearList();
-    showRecipe(gRecipes[currIndex]);
 }
 
 function goNext() {
-    if (currIndex < 5) { //size of recipes page
-        ++currIndex;
-    }
+    // Send request for next page
+    getData(`http://localhost:3000/recipes?page=${page++}&limit=1`).then(data => {
+            data.json().then(list => {
+                console.log(list);
+                showRecipes(list['results']);
+            
+            });
+        });
     clearList();
-    showRecipe(gRecipes[currIndex]);
+    
 }
 
 function clearList() {
