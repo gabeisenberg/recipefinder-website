@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="figures.css">
+    <title>Recipe Finder</title>
+</head>
+<body style="background-color: #5A5A5A;">
+<div class="menu">
+    <div class="container">
+        <div class="centered-text">
+            <div class="box">
+                <h1>Recipe Finder</h1>
+            </div> <br>
+            <div class="box">
+                <label for="input">Enter your ingredients:</label>
+                <input type="text" id="input">
+                <button onclick="onSubmit()">Submit</button>
+            </div> <br>
+            <div class="box">
+                <p id="output"></p>
+                <script src="fun.js"></script>
+            </div>
+        </div>
+    </div>
+</div>
+<div class = "results">
+    <!--<div id="res" class="hidden">-->
+    <div class="recipeTitle">
+        <div class = "centered-text">
+            <div class = "box">
+                <h1 id="current-recipe"></h1>
+            </div> <br>
+            <div class = "box">
+                <h6 id="ingredients"></h6>
+            </div>
+            <div class = "box">
+                <h6 id="directions"></h6>
+            </div>
+        </div>
+    </div>
+    <div class="buttonbox">
+        <button onclick="goBack()">Previous</button>
+        <button onclick="goNext()">Next</button>
+    </div>
+</div>
+</body>
+</html>
