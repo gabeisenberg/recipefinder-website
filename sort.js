@@ -2,12 +2,16 @@ const fs = require("fs"); // Node.js file system
 const { parse } = require("csv-parse"); // using the csv-parse module from npm
 
 class Recipe {
-    constructor(ingredients, neededIngredients, directions, name){
+    constructor(ingredients, availableIngredients, directions, name){
         this.ingredients = ingredients; // array of ingredients required for this recipe
-        this.neededIngredients = ingredients.filter(x => !neededIngredients.includes(x)); // array of ingredients that the user is missing for this recipe
+        this.neededIngredients = ingredients.filter(x => !availableIngredients.some(y => x.includes(y))) // array of ingredients that the user is missing for this recipe
         this.directions = directions; // ordered array of directions for this recipe
         this.name = name;
         this.ratio = (ingredients.length - this.neededIngredients.length) / ingredients.length // (# ingredients we have relevant to recipe) / (total # ingredients for this recipe). metric used for sorting
+        this.ratio2 = -1;
+        if (this.ratio == 1) { // we only care when there are ties between recipes that have a ratio of 1, because then we prioritize recipes that use the most ingredients that the user has
+            this.ratio2 = ingredients.length / availableIngredients.length;
+        }
     }
 }
 
@@ -34,7 +38,7 @@ class MaxHeap {
         this.heap.push(node);
         let c = this.heap.length - 1;
         let p = this.parent(c);
-        while(this.heap[p] && this.heap[p].ratio < this.heap[c].ratio) { // heapifyUp algorithm
+        while(this.heap[p] && (this.heap[p].ratio < this.heap[c].ratio || this.heap[p].ratio2 < this.heap[c].ratio2)) { // heapifyUp algorithm
             this.swap(p ,c);
             c = this.parent(c);
             p = this.parent(c);
@@ -46,9 +50,9 @@ class MaxHeap {
         let parent = 0;
         let left = 1;
         let right = 2;
-        while((this.heap[left] && this.heap[left].ratio > this.heap[parent].ratio) || (this.heap[right] && this.heap[right].ratio > this.heap[parent].ratio)) {
+        while((this.heap[left] && (this.heap[left].ratio > this.heap[parent].ratio || this.heap[left].ratio2 > this.heap[parent].ratio2)) || (this.heap[right] && (this.heap[right].ratio > this.heap[parent].ratio || this.heap[right].ratio2 > this.heap[parent].ratio2))) {
             var pos = left; // finding the correct position of the node we put at the front now
-            if(this.heap[right] && this.heap[right].ratio > this.heap[pos].ratio) { // if right child greater than left child, then right child replaces and not left
+            if(this.heap[right] && (this.heap[right].ratio > this.heap[pos].ratio || this.heap[right].ratio2 > this.heap[pos].ratio2)) { // if right child greater than left child, then right child replaces and not left
                 pos = right;
             }
             this.swap(pos, parent);
@@ -59,7 +63,7 @@ class MaxHeap {
         return max;
     }
 }
-async function readRecipes(neededIngredients) {
+async function readRecipes(availableIngredients) {
     return new Promise((resolve) => { // we need to use an asynchronous method to return the recipe array, since the parsing takes place at the same time as the code that follows it
         const recipesArray = [];
         fs.createReadStream("RAW_recipes.csv")
@@ -79,7 +83,7 @@ async function readRecipes(neededIngredients) {
                 catch (error) {
                     return;
                 }
-                r = new Recipe(ingredients, neededIngredients, directions, row[0])
+                r = new Recipe(ingredients, availableIngredients, directions, row[0])
                 recipesArray.push(r);
             })
             .on("end", function () {
@@ -106,8 +110,16 @@ function merge(left, right) { // helper function for mergeSort()
         if (left[0].ratio > right[0].ratio) {
             sorted.push(left.shift());
         }
-        else {
+        else if (left[0].ratio < right[0].ratio) {
             sorted.push(right.shift());
+        }
+        else {
+            if (left[0].ratio2 > right[0].ratio2) {
+                sorted.push(left.shift());
+            }
+            else {
+                sorted.push(right.shift());
+            }
         }
     }
     return [...sorted, ...left, ...right]; // using array spread operators to splice these arrays
@@ -124,10 +136,10 @@ function mergeSort(recipesArray) {
 
 // Main function used to test out sort.js functions
 async function main() {
-    const neededIngredients = ["eggs", "water", "sugar", "butter"] // example
-    const recipesArray = await readRecipes(neededIngredients); // await used to ensure the recipe array is actually received before the following code
-    var sorted = heapSort(recipesArray); // comment and uncomment as needed
-    //var sorted = mergeSort(recipesArray); // comment and uncomment as needed
+    const availableIngredients = ["eggs", "water", "sugar", "butter", "salt", "onion", "chicken"] // example
+    const recipesArray = await readRecipes(availableIngredients); // await used to ensure the recipe array is actually received before the following code
+    //var sorted = heapSort(recipesArray); // comment and uncomment as needed
+    var sorted = mergeSort(recipesArray); // comment and uncomment as needed
     console.log(sorted[0]);
     console.log(sorted[1]);
     console.log(sorted[2]);
@@ -135,7 +147,6 @@ async function main() {
     console.log(sorted[4]);
     console.log(sorted[5]);
 }
-
 module.exports = {
     mergeSort,
     heapSort,
