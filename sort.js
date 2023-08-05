@@ -120,6 +120,8 @@ function mergeSort(recipesArray) {
     let right = mergeSort(recipesArray.slice(middle));
     return merge(left, right)
 }
+
+// Main function used to test out sort.js functions
 async function main() {
     const neededIngredients = ["salt", "garlic", "eggs", "onion", "water", "butter"] // example
     const recipesArray = await readRecipes(neededIngredients); // await used to ensure the recipe array is actually received before the following code
@@ -129,13 +131,10 @@ async function main() {
     console.log(sorted[1]);
     console.log(sorted[2]);
 }
-<<<<<<< HEAD
 
 module.exports = {
     mergeSort,
     heapSort,
     readRecipes,
 }
-=======
->>>>>>> 5980c0814abf20edd9323971dde609223dd6a89f
-main()
+
