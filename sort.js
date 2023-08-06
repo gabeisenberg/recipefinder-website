@@ -4,7 +4,7 @@ const { parse } = require("csv-parse"); // using the csv-parse module from npm
 class Recipe {
     constructor(ingredients, availableIngredients, directions, name){
         this.ingredients = ingredients; // array of ingredients required for this recipe
-        this.neededIngredients = ingredients.filter(x => !availableIngredients.some(y => (x.includes(y) && x.size < 2 * y.size))) // array of ingredients that the user is missing for this recipe
+        this.neededIngredients = ingredients.filter(x => !availableIngredients.some(y => (x.includes(y) && x.length < 2 * y.length))) // array of ingredients that the user is missing for this recipe
         this.directions = directions; // ordered array of directions for this recipe
         this.name = name;
         this.ratio = (ingredients.length - this.neededIngredients.length) / ingredients.length // (# ingredients we have relevant to recipe) / (total # ingredients for this recipe). metric used for sorting
