@@ -1,6 +1,6 @@
 # Getting Started 
 
-## Install
+## Installation
 ---
 + To start, clone the repository: `https://github.com/gabeisenberg/recipefinder-website`
 + Make sure you have the LTS versions of node and npm installed. 
@@ -20,6 +20,7 @@
 
 ## Contribution
 ---
+Authors:
 + Gabriel Isenberg
 + Shreyas Varude
 + Kaniel Vicencio
